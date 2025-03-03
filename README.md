@@ -18,7 +18,6 @@ https://github.com/cloudbase/WindowsUpdateCLI # Ставит обновлени�
 
 ```shell
 git submodule update --init --recursive
-git submodule update
 ```
 
 ## Отдельная папка для каждого типа ОС и отдельный скрипт
