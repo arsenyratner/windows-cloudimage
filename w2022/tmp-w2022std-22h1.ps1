@@ -13,6 +13,7 @@ $custom_resources_path = ($UnattendResourcesPath + '\CustomResources')
 $custom_scripts_path = ($UnattendResourcesPath + '\CustomScripts')
 $cloudbase_init_path = (Get-Item $PSScriptRoot).parent.FullName + '\cloudbase'
 $cloudbase_init_msi_path = "D:\pub\Install\freesoft\cloudbase\CloudbaseInitSetup_1_1_6_x64.msi"
+$unattend_xml_path = ($PSScriptRoot + '\UnattendTemplate.xml')
 $ErrorActionPreference = "Stop"
 
 $configFilePath = Join-Path $scriptPath "Examples\config.ini"
