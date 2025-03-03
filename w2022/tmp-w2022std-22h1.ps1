@@ -1,5 +1,5 @@
 $scriptPath = (Get-Item $PSScriptRoot).parent.FullName + '\windows-imaging-tools'
-$osname = '2022std'
+$osname = 'w2022std'
 $osver = '22h1'
 $image_path = "C:\vm\tmp-$($osname)-$($osver).qcow2"
 $switchName = 'VM'
