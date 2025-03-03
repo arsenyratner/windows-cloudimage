@@ -18,7 +18,7 @@ https://github.com/cloudbase/WindowsUpdateCLI # Ставит обновлени�
 
 ## Перед тем как использовать, надо получить репозитории submodule
 
-```shell
+```powershell
 git clone https://gitlab.croc.ru/croc_dit/GR_sys_ing/personal-groups/aratner/windows-cloudimage.git
 cd windows-cloudimage
 git submodule update --init --recursive
