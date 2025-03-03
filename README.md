@@ -17,7 +17,7 @@ https://github.com/cloudbase/WindowsUpdateCLI # Ставит обновлени�
 ## Перед тем как использовать, надо получить репозитории submodule
 
 ```shell
-git submodule init
+git submodule update --init --recursive
 git submodule update
 ```
 

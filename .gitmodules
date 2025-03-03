@@ -3,10 +3,10 @@
 	url = https://github.com/cloudbase/windows-imaging-tools
 	branch = master
 [submodule "windows-imaging-tools/UnattendResources/windows-curtin-hooks"]
-	path = UnattendResources/windows-curtin-hooks
+	path = windows-imaging-tools/UnattendResources/windows-curtin-hooks
 	url = https://github.com/cloudbase/windows-curtin-hooks
 	branch = master
 [submodule "windows-imaging-tools/UnattendResources/WindowsUpdates"]
-	path = UnattendResources/WindowsUpdates
+	path = windows-imaging-tools/UnattendResources/WindowsUpdates
 	url = https://github.com/cloudbase/WindowsUpdateCLI
 	branch = master
