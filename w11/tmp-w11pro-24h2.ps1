@@ -1,20 +1,10 @@
 $scriptPath = (Get-Item $PSScriptRoot).parent.FullName + '\windows-imaging-tools'
-try {
-    Join-Path -Path $scriptPath -ChildPath "\WinImageBuilder.psm1" | Remove-Module -ErrorAction SilentlyContinue
-    Join-Path -Path $scriptPath -ChildPath "\Config.psm1" | Remove-Module -ErrorAction SilentlyContinue
-    Join-Path -Path $scriptPath -ChildPath "\UnattendResources\ini.psm1" | Remove-Module -ErrorAction SilentlyContinue
-} finally {
-    Join-Path -Path $scriptPath -ChildPath "\WinImageBuilder.psm1" | Import-Module
-    Join-Path -Path $scriptPath -ChildPath "\Config.psm1" | Import-Module
-    Join-Path -Path $scriptPath -ChildPath "\UnattendResources\ini.psm1" | Import-Module
-}
-
 $osname = 'w11pro'
 $osver = '24h2'
 $image_path = "C:\vm\tmp-$($osname)-$($osver).qcow2"
 $switchName = 'VM'
 $wim_file_path = "D:\Users\Public\iso\Microsoft\w11-24h2-202411-install.wim"
-$image = (Get-WimFileImagesInfo -WimFilePath $wim_file_path)[4]
+$wim_ImageIndex = 5
 $virtIOISOPath = "D:\Users\Public\iso\virtio-win-0.1.266.iso"
 $virtIODownloadLink = "https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.266-1/virtio-win-0.1.266.iso"
 $extraDriversPath = "D:\git\drivers\$osname"
@@ -26,6 +16,17 @@ $cloudbase_init_msi_path = "D:\pub\Install\freesoft\cloudbase\CloudbaseInitSetup
 $ErrorActionPreference = "Stop"
 
 $configFilePath = Join-Path $scriptPath "Examples\config.ini"
+
+try {
+    Join-Path -Path $scriptPath -ChildPath "\WinImageBuilder.psm1" | Remove-Module -ErrorAction SilentlyContinue
+    Join-Path -Path $scriptPath -ChildPath "\Config.psm1" | Remove-Module -ErrorAction SilentlyContinue
+    Join-Path -Path $scriptPath -ChildPath "\UnattendResources\ini.psm1" | Remove-Module -ErrorAction SilentlyContinue
+} finally {
+    Join-Path -Path $scriptPath -ChildPath "\WinImageBuilder.psm1" | Import-Module
+    Join-Path -Path $scriptPath -ChildPath "\Config.psm1" | Import-Module
+    Join-Path -Path $scriptPath -ChildPath "\UnattendResources\ini.psm1" | Import-Module
+}
+$image = (Get-WimFileImagesInfo -WimFilePath $wim_file_path)[($wim_ImageIndex - 1)]
 
 # The path were you want to create the config fille
 New-WindowsImageConfig -ConfigFilePath $configFilePath
