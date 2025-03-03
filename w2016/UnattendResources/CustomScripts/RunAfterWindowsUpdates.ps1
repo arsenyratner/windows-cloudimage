@@ -1,6 +1,6 @@
 # install virtio-win
 Write-Log "install virtio-win"
-Start-Process -Wait -NoNewWindow -FilePath "$ENV:SystemDrive\UnattendResources\virtio-win-guest-tools.exe" -ArgumentList "/s /qn"
+Start-Process -Wait -NoNewWindow -FilePath "$ENV:SystemDrive\UnattendResources\CustomResources\virtio-win-guest-tools.0.1.185.exe" -ArgumentList "/s /qn"
 
 # install openssh server
 # Write-Log "install openssh server"
