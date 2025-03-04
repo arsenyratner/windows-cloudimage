@@ -14,7 +14,7 @@ $custom_scripts_path = ($UnattendResourcesPath + '\CustomScripts')
 $cloudbase_init_path = (Get-Item $PSScriptRoot).parent.FullName + '\cloudbase'
 $cloudbase_init_msi_path = "D:\pub\Install\freesoft\cloudbase\CloudbaseInitSetup_1_1_6_x64.msi"
 # $unattend_xml_path = "ru.xml"
-# $product_key = "N69G4-B89J2-4G8F4-WWYCC-J464C"
+$product_key = "WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY"
 $time_zone = "Russian Standard Time"
 $ErrorActionPreference = "Stop"
 Write-Host $unattend_xml_path
@@ -44,7 +44,7 @@ Set-IniFileValue -Path $configFilePath -Section "Default" -Key "install_maas_hoo
 Set-IniFileValue -Path $configFilePath -Section "Default" -Key "enable_administrator_account" -Value "True"
 Set-IniFileValue -Path $configFilePath -Section "Default" -Key "custom_resources_path" -Value $custom_resources_path
 Set-IniFileValue -Path $configFilePath -Section "Default" -Key "custom_scripts_path" -Value $custom_scripts_path
-# Set-IniFileValue -Path $configFilePath -Section "Default" -Key "product_key" -Value $product_key
+Set-IniFileValue -Path $configFilePath -Section "Default" -Key "product_key" -Value $product_key
 Set-IniFileValue -Path $configFilePath -Section "vm" -Key "cpu_count" -Value 6
 Set-IniFileValue -Path $configFilePath -Section "vm" -Key "ram_size" -Value (8GB)
 Set-IniFileValue -Path $configFilePath -Section "vm" -Key "disk_size" -Value (40GB)
