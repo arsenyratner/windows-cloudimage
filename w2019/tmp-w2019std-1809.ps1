@@ -14,7 +14,7 @@ $custom_resources_path = ($UnattendResourcesPath + '\CustomResources')
 $custom_scripts_path = ($UnattendResourcesPath + '\CustomScripts')
 $cloudbase_init_path = (Get-Item $PSScriptRoot).parent.FullName + '\cloudbase'
 $cloudbase_init_msi_path = "D:\pub\Install\freesoft\cloudbase\CloudbaseInitSetup_1_1_6_x64.msi"
-$unattend_xml_path = "ru.xml"
+# $unattend_xml_path = "ru.xml"
 $product_key = "N69G4-B89J2-4G8F4-WWYCC-J464C"
 $time_zone = "Russian Standard Time"
 $ErrorActionPreference = "Stop"
@@ -57,7 +57,7 @@ Set-IniFileValue -Path $configFilePath -Section "custom" -Key "time_zone" -Value
 Set-IniFileValue -Path $configFilePath -Section "updates" -Key "install_updates" -Value "True"
 Set-IniFileValue -Path $configFilePath -Section "updates" -Key "purge_updates" -Value "True"
 Set-IniFileValue -Path $configFilePath -Section "sysprep" -Key "disable_swap" -Value "True"
-Set-IniFileValue -Path $configFilePath -Section "sysprep" -Key "unattend_xml_path" -Value $unattend_xml_path
+# Set-IniFileValue -Path $configFilePath -Section "sysprep" -Key "unattend_xml_path" -Value $unattend_xml_path
 Set-IniFileValue -Path $configFilePath -Section "cloudbase_init" -Key "cloudbase_init_use_local_system" -Value "True"
 Set-IniFileValue -Path $configFilePath -Section "cloudbase_init" -Key "msi_path" -Value $cloudbase_init_msi_path
 Set-IniFileValue -Path $configFilePath -Section "cloudbase_init" -Key "cloudbase_init_config_path" -Value "$cloudbase_init_path\cloudbase-init.conf"
