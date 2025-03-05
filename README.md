@@ -68,3 +68,18 @@ $cloudbase_init_path = (Get-Item $PSScriptRoot).parent.FullName + '\cloudbase'
 # Путь до MSI пакета cloudbase-init
 $cloudbase_init_msi_path = "D:\pub\Install\freesoft\cloudbase\CloudbaseInitSetup_1_1_6_x64.msi"
 ```
+
+## Модификация функции Convert-VirtualDisk 
+
+Чтобы функция конвртила диск не в туже папку где был временный диск виртуалки, добавим путь до папки в переменную окружения и добавим проверку наличия этой переменной в функцию.
+
+``` powershell
+
+    if ( (-not ([string]::IsNullOrEmpty($env:TEMPLATE_DIR_PATH))) -and (Test-Path $env:TEMPLATE_DIR_PATH) ) { 
+        # get outPath file name only
+        $outFile = (split-path -leaf $outPath)
+        # set out path to template dir  
+        $outPath = "$($env:TEMPLATE_DIR_PATH)\$($outFile)"
+    }
+
+```

@@ -16,7 +16,8 @@ $Folder = 'D:\LanguagesAndOptionalFeatures'
 if (Test-Path -Path $Folder) {
     Get-WindowsCapability -Name RSAT* -Online -Source "$Folder" | Where-Object State -EQ NotPresent | Add-WindowsCapability -Online -Source "$Folder" -ErrorAction SilentlyContinue 
 } else {
-    Get-WindowsCapability -Name RSAT* -Online | Where-Object State -EQ NotPresent | Add-WindowsCapability -Online
+    Write-Log "RSAT not installed"
+    # Get-WindowsCapability -Name RSAT* -Online | Where-Object State -EQ NotPresent | Add-WindowsCapability -Online
 }
 
 # $capabilities = Get-WindowsCapability -Online | Where-Object { $_.Name -like "RSAT*" -AND $_.State -eq "NotPresent" }
