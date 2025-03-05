@@ -3,6 +3,7 @@ $scriptPath = (Get-Item $PSScriptRoot).parent.FullName + '\windows-imaging-tools
 $osname = 'w2019std'
 $osver = '1809'
 $image_path = "C:\vm\tmp-$($osname)-$($osver).qcow2"
+$env:TEMPLATE_DIR_PATH = "D:\vm\_tmp"
 $switchName = 'VM'
 $wim_file_path = "D:\Users\Public\iso\Microsoft\w2019-1809-202211-install.wim"
 $wim_ImageIndex = 2
