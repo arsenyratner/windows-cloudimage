@@ -55,7 +55,7 @@ Set-IniFileValue -Path $configFilePath -Section "vm" -Key "disk_size" -Value (40
 Set-IniFileValue -Path $configFilePath -Section "vm" -Key "external_switch" -Value $switchName
 Set-IniFileValue -Path $configFilePath -Section "drivers" -Key "virtio_iso_path" -Value $virtIOISOPath
 Set-IniFileValue -Path $configFilePath -Section "drivers" -Key "drivers_path" -Value $extraDriversPath
-Set-IniFileValue -Path $configFilePath -Section "custom" -Key "install_qemu_ga" -Value "True"
+Set-IniFileValue -Path $configFilePath -Section "custom" -Key "install_qemu_ga" -Value "False"
 Set-IniFileValue -Path $configFilePath -Section "custom" -Key "time_zone" -Value $time_zone
 Set-IniFileValue -Path $configFilePath -Section "updates" -Key "install_updates" -Value "True"
 Set-IniFileValue -Path $configFilePath -Section "updates" -Key "purge_updates" -Value "True"
