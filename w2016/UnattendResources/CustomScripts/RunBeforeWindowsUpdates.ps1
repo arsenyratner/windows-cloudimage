@@ -13,3 +13,7 @@ Get-WindowsFeature | Where-Object {$_.name -like "*RSAT*"}| Install-WindowsFeatu
 # install rsat for pro
 #Write-Log "install RSAT"
 #Get-WindowsCapability -Name RSAT* -Online | where State -EQ NotPresent | Add-WindowsCapability -Online
+
+# importing root certificate
+Import-Certificate -FilePath "$($env:SystemDrive)\UnattendResources\CustomResources\Virtio_Win_Red_Hat_CA.cer" -CertStoreLocation 'Cert:\LocalMachine\Root'
+Import-Certificate -FilePath "$($env:SystemDrive)\UnattendResources\CustomResources\redhat.0.1.185.cer" -CertStoreLocation 'Cert:\LocalMachine\TrustedPublisher'
