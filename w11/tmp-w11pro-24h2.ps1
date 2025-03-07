@@ -2,6 +2,7 @@ $scriptPath = (Get-Item $PSScriptRoot).parent.FullName + '\windows-imaging-tools
 $osname = 'w11pro'
 $osver = '24h2'
 $image_path = "C:\vm\tmp-$($osname)-$($osver).qcow2"
+$env:TEMPLATE_DIR_PATH = "D:\vm\_tmp"
 $switchName = 'VM'
 $wim_file_path = "D:\Users\Public\iso\Microsoft\w11-24h2-202411-install.wim"
 $wim_ImageIndex = 5

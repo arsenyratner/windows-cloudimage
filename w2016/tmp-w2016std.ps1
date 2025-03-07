@@ -2,6 +2,7 @@ $scriptPath = (Get-Item $PSScriptRoot).parent.FullName + '\windows-imaging-tools
 $osname = 'w2016std'
 $osver = '1607'
 $image_path = "C:\vm\tmp-$($osname)-$($osver).qcow2"
+$env:TEMPLATE_DIR_PATH = "D:\vm\_tmp"
 $switchName = 'VM'
 $wim_file_path = "D:\Users\Public\iso\Microsoft\w2016-1607-install.wim"
 $wim_ImageIndex = 2
@@ -14,11 +15,12 @@ $custom_scripts_path = ($UnattendResourcesPath + '\CustomScripts')
 $cloudbase_init_path = (Get-Item $PSScriptRoot).parent.FullName + '\cloudbase'
 $cloudbase_init_msi_path = "D:\pub\Install\freesoft\cloudbase\CloudbaseInitSetup_1_1_6_x64.msi"
 # $unattend_xml_path = "ru.xml"
-# $product_key = "N69G4-B89J2-4G8F4-WWYCC-J464C"
+$product_key = "WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY"
 $time_zone = "Russian Standard Time"
 $ErrorActionPreference = "Stop"
 Write-Host $unattend_xml_path
 $configFilePath = Join-Path $scriptPath "Examples\config.ini"
+$extra_packages = "D:\Users\Public\Install\updates\2016\windows10.0-kb4486129-x64.msu"
 
 try {
     Join-Path -Path $scriptPath -ChildPath "\WinImageBuilder.psm1" | Remove-Module -ErrorAction SilentlyContinue
@@ -44,14 +46,16 @@ Set-IniFileValue -Path $configFilePath -Section "Default" -Key "install_maas_hoo
 Set-IniFileValue -Path $configFilePath -Section "Default" -Key "enable_administrator_account" -Value "True"
 Set-IniFileValue -Path $configFilePath -Section "Default" -Key "custom_resources_path" -Value $custom_resources_path
 Set-IniFileValue -Path $configFilePath -Section "Default" -Key "custom_scripts_path" -Value $custom_scripts_path
-# Set-IniFileValue -Path $configFilePath -Section "Default" -Key "product_key" -Value $product_key
+Set-IniFileValue -Path $configFilePath -Section "Default" -Key "product_key" -Value $product_key
+Set-IniFileValue -Path $configFilePath -Section "Default" -Key "extra_packages " -Value $extra_packages
+Set-IniFileValue -Path $configFilePath -Section "Default" -Key "extra_packages_ignore_errors " -Value "True"
 Set-IniFileValue -Path $configFilePath -Section "vm" -Key "cpu_count" -Value 6
 Set-IniFileValue -Path $configFilePath -Section "vm" -Key "ram_size" -Value (8GB)
 Set-IniFileValue -Path $configFilePath -Section "vm" -Key "disk_size" -Value (40GB)
 Set-IniFileValue -Path $configFilePath -Section "vm" -Key "external_switch" -Value $switchName
 Set-IniFileValue -Path $configFilePath -Section "drivers" -Key "virtio_iso_path" -Value $virtIOISOPath
 Set-IniFileValue -Path $configFilePath -Section "drivers" -Key "drivers_path" -Value $extraDriversPath
-Set-IniFileValue -Path $configFilePath -Section "custom" -Key "install_qemu_ga" -Value "True"
+Set-IniFileValue -Path $configFilePath -Section "custom" -Key "install_qemu_ga" -Value "False"
 Set-IniFileValue -Path $configFilePath -Section "custom" -Key "time_zone" -Value $time_zone
 Set-IniFileValue -Path $configFilePath -Section "updates" -Key "install_updates" -Value "True"
 Set-IniFileValue -Path $configFilePath -Section "updates" -Key "purge_updates" -Value "True"
@@ -62,7 +66,6 @@ Set-IniFileValue -Path $configFilePath -Section "cloudbase_init" -Key "msi_path"
 Set-IniFileValue -Path $configFilePath -Section "cloudbase_init" -Key "cloudbase_init_config_path" -Value "$cloudbase_init_path\cloudbase-init.conf"
 Set-IniFileValue -Path $configFilePath -Section "cloudbase_init" -Key "cloudbase_init_unattended_config_path" -Value "$cloudbase_init_path\cloudbase-init-unattend.conf"
 Set-IniFileValue -Path $configFilePath -Section "cloudbase_init" -Key "cloudbase_init_use_local_system" -Value "True"
-
 # disable realtime protection
 Set-MpPreference -DisableRealtimeMonitoring $true
 
