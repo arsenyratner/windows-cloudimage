@@ -48,7 +48,8 @@ Set-IniFileValue -Path $configFilePath -Section "Default" -Key "enable_administr
 Set-IniFileValue -Path $configFilePath -Section "Default" -Key "custom_resources_path" -Value $custom_resources_path
 Set-IniFileValue -Path $configFilePath -Section "Default" -Key "custom_scripts_path" -Value $custom_scripts_path
 Set-IniFileValue -Path $configFilePath -Section "Default" -Key "extra_packages " -Value $extra_packages
-Set-IniFileValue -Path $configFilePath -Section "Default" -Key "extra_packages_ignore_errors " -Value "True"
+Set-IniFileValue -Path $configFilePath -Section "Default" -Key "extra_packages_ignore_errors+" -Value "True"
+Set-IniFileValue -Path $configFilePath -Section "Default" -Key "install_net_3_5" -Value "True"
 # Set-IniFileValue -Path $configFilePath -Section "Default" -Key "product_key" -Value $product_key
 Set-IniFileValue -Path $configFilePath -Section "vm" -Key "cpu_count" -Value 6
 Set-IniFileValue -Path $configFilePath -Section "vm" -Key "ram_size" -Value (8GB)
