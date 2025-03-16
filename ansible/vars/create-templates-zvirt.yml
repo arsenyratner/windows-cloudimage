@@ -1,0 +1,16 @@
+image_path: /var/tmp
+image_cache_download: true
+
+create_templates_defaults:
+  template_cluster: CL-OVN
+  template_memory: 1GiB
+  template_cpu: 1
+  template_disk_size: 7GiB
+  template_disk_storage: fc_dc_ovn_01
+  template_disk_interface: virtio_scsi
+  template_nics: []
+  # template_bios_type:
+  template_type: server # desktop
+
+create_templates:
+  - { template_name: aratner_testtmp1, template_operating_system: Alt Linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.8.1uu1-max-cloudinit-mg15.0.2-amd64.qcow2 }
