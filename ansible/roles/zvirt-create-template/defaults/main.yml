@@ -1,5 +1,5 @@
 ---
-image_path: /tmp
+image_path: /var/tmp
 image_cache_download: true
 image_download_timeout: 180
 template_cluster: Default
@@ -12,7 +12,7 @@ template_timeout: 600
 template_disks: []
 template_disk_interface: virtio
 template_nics: []
-template_seal: true
+template_seal: false
 
 disk_resize_timeout: 60
 disk_storage_domain: null
