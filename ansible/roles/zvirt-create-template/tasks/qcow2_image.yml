@@ -230,6 +230,7 @@
         cluster: "{{ template_cluster }}"
         timeout: "{{ template_timeout }}"
         seal: "{{ template_seal }}"
+        description: "{{ template_description | default('') }}"
       when: template_info.ovirt_templates | length == 0
       tags:
         - ovirt-template-image
