@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-IE-ClientNetworkProtocolImplementation" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <HKLMProxyEnable>false</HKLMProxyEnable>
+        </component>
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale><![CDATA[en_US]]></InputLocale>
+            <SystemLocale><![CDATA[ru-RU]]></SystemLocale>
+            <UILanguage><![CDATA[en_US]]></UILanguage>
+            <UILanguageFallback>en-US</UILanguageFallback>
+            <UserLocale><![CDATA[ru-RU]]></UserLocale>
+        </component>
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <OOBE>
+                <VMModeOptimizations>
+					<SkipAdministratorProfileRemoval>true</SkipAdministratorProfileRemoval>
+					<SkipNotifyUILanguageChange>true</SkipNotifyUILanguageChange>
+					<SkipWinREInitialization>true</SkipWinREInitialization>
+				</VMModeOptimizations>
+                <HideEULAPage>true</HideEULAPage>
+                <HideLocalAccountScreen>true</HideLocalAccountScreen>
+                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+                <NetworkLocation>Work</NetworkLocation>
+                <SkipUserOOBE>true</SkipUserOOBE>
+                <SkipMachineOOBE>true</SkipMachineOOBE>
+            </OOBE>
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value><![CDATA[{{ createvm.ci.userpass }}]]></Value>
+                    <PlainText>true</PlainText>
+                </AdministratorPassword>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <Name>{{ createvm.ci.username }}</Name>
+                        <Password>
+                            <Value>{{ createvm.ci.userpass }}</Value>
+                            <PlainText>true</PlainText>
+                        </Password>
+                        <Group>Administrators</Group>
+                    </LocalAccount>
+                </LocalAccounts>
+            </UserAccounts>
+        </component>
+    </settings>
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <TimeZone><![CDATA[{{ createvm.timezone }}]]></TimeZone>
+            <ComputerName><![CDATA[{{ createvm.ci.hostname }}]]></ComputerName>
+            <RegisteredOrganization><![CDATA[{{ createvm.project | default(createvm_default.project) }}]]></RegisteredOrganization>
+            <RegisteredOwner>{{ createvm.project | default(createvm_default.project) }}</RegisteredOwner>
+            <Display>
+                <ColorDepth>32</ColorDepth>
+                <HorizontalResolution>1600</HorizontalResolution>
+                <RefreshRate>60</RefreshRate>
+                <VerticalResolution>900</VerticalResolution>
+            </Display>
+        </component>
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <RunSynchronous>
+                <!-- 
+                <RunSynchronousCommand wcm:action="add">
+                <Order>2</Order>
+                <Path>cmd.exe /c ""C:\Program Files\Cloudbase Solutions\Cloudbase-Init\Python\Scripts\cloudbase-init.exe" - - config-file "C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init-unattend.conf" &amp;&amp; exit 1 || exit 2"</Path>
+                <Description>Run Cloudbase-Init to set the hostname</Description>
+                <WillReboot>OnRequest</WillReboot>
+                </RunSynchronousCommand> -->
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>1</Order>
+                    <Path>"C:\Windows\System32\reg.exe" ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "PagingFiles" /d "?:\pagefile.sys" /f</Path>
+                    <Description>Set page file to be automatically managed by the system</Description>
+                    <WillReboot>Never</WillReboot>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Credentials>
+                        <Username>{{ createvm.ci.username }}</Username>
+                        <Password>{{ createvm.ci.userpass }}</Password>
+                    </Credentials>
+                    <Order>2</Order>
+                    <Path>powershell.exe -WindowStyle Normal -NoProfile -Command "$xml = [xml]::new(); $xml.Load('D:\unattend.xml'); $sb = [scriptblock]::Create( $xml.unattend.Extensions.ExtractScript ); Invoke-Command -ScriptBlock $sb -ArgumentList $xml;</Path>
+                    <Description>Add Certificate for WinRM SSL</Description>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+        <component name="Microsoft-Windows-TCPIP" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <Interfaces>
+                <Interface wcm:action="add">
+                    <Ipv4Settings>
+                        <DhcpEnabled>false</DhcpEnabled>
+                        <RouterDiscoveryEnabled>false</RouterDiscoveryEnabled>
+                    </Ipv4Settings>
+                    <!-- <Ipv6Settings>
+                        <DhcpEnabled>false</DhcpEnabled> 
+                        <Metric>30</Metric> 
+                        <RouterDiscoveryEnabled>true</RouterDiscoveryEnabled> 
+                    </Ipv6Settings> -->
+                    <Identifier>{{ createvm_mac }}</Identifier>
+                    <UnicastIpAddresses>
+                        <IpAddress wcm:action="add" wcm:keyValue="1">{{ (createvm.ci.ipv4_address | default('') + '/' + createvm.ci.ipv4_netmask | default('')) | ansible.utils.ipaddr('address/prefix') }}</IpAddress>
+                    </UnicastIpAddresses>
+                    <Routes>
+                        <Route wcm:action="add">
+                            <Identifier>1</Identifier>
+                            <NextHopAddress>{{ createvm.ci.ipv4_gateway | default('') }}</NextHopAddress>
+                            <Prefix>0.0.0.0/0</Prefix>
+                        </Route>
+                    </Routes>
+                </Interface>
+            </Interfaces>
+        </component>
+{% if createvm.ci.dns_servers != [] %}
+        <component name="Microsoft-Windows-DNS-Client" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <Interfaces>
+                <Interface wcm:action="add">
+                    <Identifier>{{ createvm_mac }}</Identifier>
+                    <DNSServerSearchOrder>
+{% for server in createvm.ci.dns_servers %}
+                        <IpAddress wcm:action="add" wcm:keyValue="{{ loop.index }}">{{ server }}</IpAddress>
+{% endfor %}
+                    </DNSServerSearchOrder>
+                </Interface>
+            </Interfaces>
+        </component>
+{% endif %}
+        <!-- <component name="Microsoft-Windows-UnattendedJoin" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <Identification>
+                <Credentials>
+                    <Domain><![CDATA[{{ domain_name | default(omit) }}]]></Domain>
+                    <Password><![CDATA[{{ domainjoin_password | default(omit) }}]]></Password>
+                    <Username><![CDATA[{{ domainjoin_user | default(omit) }}]]></Username>
+                </Credentials>
+                <DebugJoin>true</DebugJoin>
+                <JoinDomain><![CDATA[{{ domain_name | default(omit) }}]]></JoinDomain>
+                <MachineObjectOU><![CDATA[]]></MachineObjectOU>
+            </Identification> 
+        </component> -->
+    </settings>
+    <Extensions xmlns="https://schneegans.de/windows/unattend-generator/">
+        <ExtractScript>netsh advfirewall firewall add rule name="Allow WinRM" dir=in action=allow protocol=TCP localport=5985; netsh advfirewall firewall add rule name="Allow WinRM SSL" dir=in action=allow protocol=TCP localport=5986; winrm quickconfig -q -transport:http; $thumbprint=( New-SelfSignedCertificate -CertStoreLocation 'Cert:\LocalMachine\My' -DnsName {{ createvm.ci.hostname }} -NotAfter (Get-Date).AddYears(10) | select -ExpandProperty Thumbprint); New-Item -Path WSMan:\LocalHost\Listener -Transport HTTPS -Address *  -CertificateThumbPrint $thumbprint -Force; Set-WSManInstance -ResourceURI winrm/config/Listener -SelectorSet @{Address='*'; Transport='HTTPS'} -ValueSet @{CertificateThumbprint=$ThumbPrint} | Out-File -FilePath 'c:\winrm.log' -Append; Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true; Start-Sleep -Seconds 15</ExtractScript>
+    </Extensions>
+</unattend>

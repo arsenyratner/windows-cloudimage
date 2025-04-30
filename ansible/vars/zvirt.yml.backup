@@ -1,12 +1,3 @@
-zvirt_defaults:
-  data_center: DC-OVN
-  cluster: CL-OVN
-  vm_enforcing: false
-  host_enforcing: false 
-  vm_rule: negative
-  # vms: []
-  # hosts: []
-
 engine_fqdn: eng.spo.local
 engine_user: aratner@internal
 engine_cafile: ./files/spo-DC001-CA.crt

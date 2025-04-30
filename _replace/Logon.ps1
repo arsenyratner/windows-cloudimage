@@ -286,8 +286,9 @@ function Get-AdministratorAccount {
 
 function Enable-AdministratorAccount {
     [string]$username = Get-AdministratorAccount
-    if (test-path "$env:windir\Setup\Scripts") {
+    if (-Not (test-path "$env:windir\Setup\Scripts")) {
         New-Item -Path "$env:windir\Setup" -Name "Scripts" -ItemType "Directory"
+        New-Item -ItemType file "$env:windir\Setup\Scripts\SetupComplete.cmd"
     }
     $setupCompletePath = "$env:windir\Setup\Scripts\SetupComplete.cmd"
     $activate = "powershell -c net user {0} /active:yes" -f $username

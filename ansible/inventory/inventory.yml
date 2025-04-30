@@ -1,0 +1,10 @@
+test:
+  hosts:
+    test1: 
+      ansible_host: 172.26.76.219
+      ansible_user: crocadmin
+      ansible_password: QAZxsw123
+      ansible_connection: winrm
+      ansible_winrm_transport: basic
+      ansible_winrm_server_cert_validation: ignore
+      ansible_become: false

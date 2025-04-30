@@ -1,27 +1,21 @@
-image_path: /var/tmp
-image_cache_download: true
 
 create_templates_defaults:
   template_cluster: CL-OVN
   template_memory: 1GiB
   template_cpu: 1
-  template_disk_size: 7GiB
-  template_disk_storage: fc_dc_ovn_01
+  template_disk_size: 4GiB
+  template_disk_storage: fc_dc_ovn_02
   template_disk_interface: virtio_scsi
   template_nics: []
-  # template_bios_type:
+  template_bios_type: q35_sea_bios # q35_ovmf
   template_type: server # desktop
+  image_path: /var/tmp
+  image_cache_download: true
+  image_use_local_file: true
 
 create_templates:
-  - { template_name: tmp-alse-1.7.6uu2-base, template_description: mg15.1.0, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.7.6uu2-base-cloudinit-mg15.1.0-amd64.qcow2 }
-  - { template_name: tmp-alse-1.7.6uu2-base, template_description: mg15.1.0, template_cluster: CL-BR, template_disk_storage: fc_dc_br_02, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.7.6uu2-base-cloudinit-mg15.1.0-amd64.qcow2 }
-  - { template_name: tmp-alse-1.7.6uu2-adv, template_description: mg15.1.0, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.7.6uu2-adv-cloudinit-mg15.1.0-amd64.qcow2 }
-  - { template_name: tmp-alse-1.7.6uu2-adv, template_description: mg15.1.0, template_cluster: CL-BR, template_disk_storage: fc_dc_br_02, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.7.6uu2-adv-cloudinit-mg15.1.0-amd64.qcow2 }
-  - { template_name: tmp-alse-1.7.6uu2-max, template_description: mg15.1.0, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.7.6uu2-max-cloudinit-mg15.1.0-amd64.qcow2 }
-  - { template_name: tmp-alse-1.7.6uu2-max, template_description: mg15.1.0, template_cluster: CL-BR, template_disk_storage: fc_dc_br_02, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.7.6uu2-max-cloudinit-mg15.1.0-amd64.qcow2 }
-  - { template_name: tmp-alse-1.8.1uu1-base, template_description: mg15.0.2, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.8.1uu1-base-cloudinit-mg15.0.2-amd64.qcow2 }
-  - { template_name: tmp-alse-1.8.1uu1-base, template_description: mg15.0.2, template_cluster: CL-BR, template_disk_storage: fc_dc_br_02, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.8.1uu1-base-cloudinit-mg15.0.2-amd64.qcow2 }
-  - { template_name: tmp-alse-1.8.1uu1-adv, template_description: mg15.0.2, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.8.1uu1-adv-cloudinit-mg15.0.2-amd64.qcow2 }
-  - { template_name: tmp-alse-1.8.1uu1-adv, template_description: mg15.0.2, template_cluster: CL-BR, template_disk_storage: fc_dc_br_02, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.8.1uu1-adv-cloudinit-mg15.0.2-amd64.qcow2 }
-  - { template_name: tmp-alse-1.8.1uu1-max, template_description: mg15.0.2, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.8.1uu1-max-cloudinit-mg15.0.2-amd64.qcow2 }
-  - { template_name: tmp-alse-1.8.1uu1-max, template_description: mg15.0.2, template_cluster: CL-BR, template_disk_storage: fc_dc_br_02, template_operating_system: astra_linux, qcow_url: https://registry.astralinux.ru/artifactory/mg-generic/alse/cloudinit/alse-1.8.1uu1-max-cloudinit-mg15.0.2-amd64.qcow2 }
+  # - { template_name: tmp-alse-1.8.1.uu1-base, template_description: "mg15.3.1", template_operating_system: astra_linux, qcow_url: /mnt/c/vm/_tmp/alse-1.8.1.uu1-base-cloudinit-mg15.3.1-amd64.qcow2 }
+  # - { template_name: tmp-redos80, template_description: "20250327", template_operating_system: linux, qcow_url: /mnt/d/vm/_tmp/tmp-redos-80.qcow2 }
+  # - { template_name: tmp-chr7, template_description: Mikrotik Routeros 7 7.18.2, template_operating_system: linux, qcow_url: /mnt/d/vm/_tmp/tmp-chr7-7182.qcow2 }
+  # - { template_name: tmp-w2022std, bios_type: q35_ovmf, template_description: Windows 2022 Standard, template_operating_system: Windows, qcow_url: /mnt/d/vm/_tmp/tmp-w2022std.qcow2 }
+  - { template_name: tmp-w11pro-sysprep, bios_type: q35_ovmf, template_description: Windows 11 pro 24h2 sysprep, template_operating_system: Windows_11, qcow_url: /mnt/d/vm/_tmp/tmp-w11pro-24h2-sysprep.qcow2 }
