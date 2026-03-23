@@ -75,6 +75,9 @@ $cloudbase_init_msi_path = "D:\pub\Install\freesoft\cloudbase\CloudbaseInitSetup
 
 ``` powershell
 
+$env:TEMPLATE_DIR_PATH = "d:\vm\_tmp"
+
+
     if ( (-not ([string]::IsNullOrEmpty($env:TEMPLATE_DIR_PATH))) -and (Test-Path $env:TEMPLATE_DIR_PATH) ) { 
         # get outPath file name only
         $outFile = (split-path -leaf $outPath)
