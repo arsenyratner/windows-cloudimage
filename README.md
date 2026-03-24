@@ -2,10 +2,10 @@
 # Подготовка образов Windows для KVM (zvirt, proxmox)
 
 Используем инструменты
-https://github.com/cloudbase/windows-imaging-tools
+<https://github.com/cloudbase/windows-imaging-tools>
 windows-imaging-tools в свою очередь использует ещё два репозитория:
-https://github.com/cloudbase/windows-curtin-hooks # нужно для MAAS, кажется.
-https://github.com/cloudbase/WindowsUpdateCLI # Ставит обновления
+<https://github.com/cloudbase/windows-curtin-hooks> # нужно для MAAS, кажется.
+<https://github.com/cloudbase/WindowsUpdateCLI> # Ставит обновления
 
 Что windows-imaging-tools делает?
 Создаёт vhdx диск, разворачивает туда installl.wim, 
@@ -73,9 +73,9 @@ $cloudbase_init_msi_path = "D:\pub\Install\freesoft\cloudbase\CloudbaseInitSetup
 
 Чтобы функция конвртила диск не в туже папку где был временный диск виртуалки, добавим путь до папки в переменную окружения и добавим проверку наличия этой переменной в функцию.
 
-``` powershell
+```powershell
 
-$env:TEMPLATE_DIR_PATH = "d:\vm\_tmp"
+$env:TEMPLATE_DIR_PATH = "d:\vm\tmp"
 
 
     if ( (-not ([string]::IsNullOrEmpty($env:TEMPLATE_DIR_PATH))) -and (Test-Path $env:TEMPLATE_DIR_PATH) ) { 
@@ -92,6 +92,7 @@ $env:TEMPLATE_DIR_PATH = "d:\vm\_tmp"
 https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-shell-setup-timezone
 https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-tcpip-interfaces
 
+```powershell
 
 $adminCred = Get-Credential -Message "Local administrator account"
 $domainCred = Get-Credential -Message "Domain join credentials"
@@ -104,3 +105,4 @@ New-ShieldingDataAnswerFile `
   -Locale ru-RU `
   -DomainName $domainName `
   -DomainJoinCredentials $domainCred
+```
