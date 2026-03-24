@@ -319,6 +319,7 @@ function Is-WindowsClient {
 function Run-CustomScript {
     Param($ScriptFileName)
     $fullScriptFilePath = Join-Path $customScriptsDir $ScriptFileName
+    Write-Log "CustomScripts(${ScriptFileName})" "${ScriptFileName} starting"
     if (Test-Path $fullScriptFilePath) {
         Write-Host "Executing script $fullScriptFilePath"
         & $fullScriptFilePath
