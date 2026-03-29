@@ -389,7 +389,8 @@ function Convert-VirtualDisk {
         [Parameter(Mandatory=$false)]
         [boolean]$CompressQcow2
     )
-    Write-Log "Convert-VirtualDisk starting"
+
+    Write-Log "Convert Virtual Disk: set outPath"
     if ( (-not ([string]::IsNullOrEmpty($env:TEMPLATE_DIR_PATH))) -and (Test-Path $env:TEMPLATE_DIR_PATH) ) { 
         # get outPath file name only
         $outFile = (split-path -leaf $outPath)
